@@ -4,6 +4,7 @@ const {User} = require('../models/mainModels.js');
 // object contains all mediaController middleware
 const mediaController = {};
 
+//TODO: Refactor with async/await
 // middleware to get entire media profile of user
 mediaController.getMedia = (req, res, next) => {
   // find all media catalog
@@ -17,7 +18,7 @@ mediaController.getMedia = (req, res, next) => {
       // if no user found
       if (!response) {
         // store an empty object in local memory for front end
-        res.locals.media = {};
+        res.locals.media = {}; //shouldnt this be an empty array
         return next();
       }
       // store in local memory the User.media

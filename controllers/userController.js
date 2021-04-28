@@ -7,6 +7,8 @@ const userController = {};
 userController.createUser = async (req, res, next) => {
   
   console.log(req.body);
+
+  //This check is not necessary - the schema would enforce these fields are provieded
   const { username, password, email, firstName, lastName } = req.body;
   if (!username || !password || !email || !firstName || !lastName ) return next('Missing information in userController.createUser');
 
@@ -22,12 +24,10 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
-// POSSIBLY:
-// userController.encryptPassword = (req, res, next) => {
-//   
-// };
-
 // middleware to check whether user already exists
+//Good opportunity to split this into two middlewares:
+  //getUserByUserName
+  //comparePasswords
 userController.verifyUser = async (req, res, next) => {
 
   console.log('Login received: ', req.body);
@@ -37,7 +37,7 @@ userController.verifyUser = async (req, res, next) => {
   // only query userName; check out bcrypt docs to see how to compare input password and encrypted password
   try {
     //Login received:  { username: 'a', password: 'a' }
-    const foundUser = await User.findOne({ "userProfile.username" : username }).exec();
+    const foundUser = await User.findOne({ 'userProfile.username' : username }).exec();
     console.log('found user: ', foundUser);
     if (foundUser !== null) {
       bcrypt.compare(password, foundUser.userProfile.password, (err, response) => {
