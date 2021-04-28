@@ -5,7 +5,7 @@ export default ({ login }) => {
 
   return (
     <div id='login-form-container' className='user-credential-form-container'>
-      <h1>Bookshelf</h1>
+      <h1>myShelf</h1>
       
       <form onSubmit={(e) => login(e)}>
         <div className='loginItem'>

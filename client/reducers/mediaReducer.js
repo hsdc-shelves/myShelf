@@ -80,7 +80,9 @@ const mediaReducer = (state = initialState, action) => {
     case (actions.DELETE_MEDIA): {
       return {
         ...state,
-        media: [...state.media].splice(action.payload.position, 1)
+        media: [...state.media].filter(el => {
+          el._id !== action.payload;
+        })
       }
     }
 
