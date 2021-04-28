@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
+require('dotenv').config();
 // connect to atlas
 // Add MongoURI from Atlas in string with password and dbName is 'BookshelfDB' instead of myFirstDatabase
-const mongoURI = '';
 
 mongoose
-  .connect(mongoURI, {
+  .connect(process.env.pg_URI, {
     // options for the connect method to parse the URI
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // sets the name of the DB that our collections are part of
-    dbName: 'BookshelfDB',
+    dbName: 'hsdc-myShelf',
     useCreateIndex: true, //prevents deprecation warning
   })
   .then(() => console.log('Connected to Mongo DB.'))
@@ -64,7 +64,7 @@ const User = mongoose.model('user', userSchema);
 // sessionSchema
 const sessionSchema = new Schema({
   cookieId: {type: String, required: true, unique: true},
-  createdAt: {type: Date, expires: 30, default: Date.now},
+  createdAt: {type: Date, expires: 30, default: Date.now}, 
 });
 
 // declare session for export
