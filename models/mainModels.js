@@ -11,6 +11,7 @@ mongoose
     // options for the connect method to parse the URI
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
     // sets the name of the DB that our collections are part of
     dbName: 'hsdc-myShelf',
     useCreateIndex: true, //prevents deprecation warning
