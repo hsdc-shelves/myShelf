@@ -52,6 +52,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
 sessionController.servePage = async (req, res, next) => {
   if (res.locals.sessionAuthenticated) {
     try {
+      //This query is ONLY needed on the session authentication route
       const foundUser = await User.findOne({ _id: res.locals.ssid }).exec();
       console.log(foundUser);
       res.locals.payload = {
