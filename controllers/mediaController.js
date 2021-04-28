@@ -81,7 +81,7 @@ mediaController.updateMedia = async (req, res, next) => {
     }
 
     //take the returned data from the media array and save it to the response body
-    res.locals.updatedMedia = updateUserMediaObj.media[0];
+    res.locals.media = updateUserMediaObj.media[0];
     return next();
 
   } catch (err) {

@@ -15,7 +15,7 @@ router.post('/', mediaController.addMedia, (req, res) => {
   
 // update a specific media entry
 router.put('/:userId', mediaController.updateMedia, (req, res) => {
-  res.status(200).json(res.locals.updatedMedia);
+  res.status(200).json(res.locals.media);
 });
   
 // delete media entry
