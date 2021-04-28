@@ -17,9 +17,16 @@ media to display on the main application (filter for media type)
 }
 
 export const getMediaActionCreator = (userId) => (dispatch) => {
+  //this is a function within a function that is returning an anon func
+  //that takes in (dispatch). When getMediaActionCreator is invoked it tgen only has to take in user id
+  //and can have access to dispatch.
+
+
 /*
 thunked action creator to fetch all media for the user
 */
+//thunked handles the asych middleware of redux
+//
 
   fetch(`http://localhost:3000/api/media?userId=${userId}`)
     .then(res => res.json())

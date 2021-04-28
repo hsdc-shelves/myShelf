@@ -24,7 +24,7 @@ export default ({ login }) => {
       <Link to='/signup'>
        <p id='signupLink'>New? Get started here.</p>
       </Link>
-      
+      {/* link is react router taking us to a new place */}
     </div>
   )
 }
