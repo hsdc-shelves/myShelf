@@ -14,13 +14,13 @@ router.post('/', mediaController.addMedia, (req, res) => {
 });
   
 // update a specific media entry
-router.put('/', mediaController.updateMedia, (req, res) => {
-  res.status(200).json(res.body);
+router.put('/:userId', mediaController.updateMedia, (req, res) => {
+  res.status(200).json(res.locals.updatedMedia);
 });
   
 // delete media entry
-router.delete('/', mediaController.deleteMedia, (req, res) => {
-  res.status(200).json(res.body);
+router.delete('/:userId/:mediaId', mediaController.deleteMedia, (req, res) => {
+  res.status(200).json(res.locals.media);
 });
   
 
