@@ -41,6 +41,8 @@ app.use((err, req, res, next) => {
   }
 
   err = Object.assign(defaultError, err);
+
+  console.log(err.log);
   return res.status(err.status).json(err.message);
 })
 
