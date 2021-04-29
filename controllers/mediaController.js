@@ -66,7 +66,7 @@ mediaController.updateMedia = async (req, res, next) => {
       //filter out the user in the user collection
       { _id: userId }, 
       //update the media field in User document with the received data from the client
-      { $set: { media : req.body }}, 
+      { $set: { media: req.body }}, 
       //projection allows for a specific part of the document to be returned, then inside the media array in the user doc, return only the media object that matches the mediaID, the returned document will be the user id and a media with one value in the array of the updated media
       { new: true, projection: { media: {$elemMatch: {_id: mediaId} } } }
     ).exec();

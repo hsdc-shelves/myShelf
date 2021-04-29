@@ -23,7 +23,7 @@ media to display on the main application (filter for media type)
 }
 
 export const placeIdToUpdateInStateActionCreator = (mediaId) => {
-  console.log(mediaId)
+  // console.log(mediaId)
   return{
     type: actions.UPDATE_ID_INSTATE,
     payload: mediaId
@@ -32,6 +32,7 @@ export const placeIdToUpdateInStateActionCreator = (mediaId) => {
 
 //create an action that will send the newly updated bit of media to the back end
 //somehow we also at the end of these need to update the idToUpdate val in state back to null
+
 
 export const deleteMediaActionCreator = (mediaId, userId) =>  (dispatch) => {  
   
@@ -111,8 +112,36 @@ thunked action creator to add new media
         payload: newMedia
       })
     })
+    .catch(err => console.log('error in addMedia mAC', err))
     //Need to add a catch block and display error to user
 }
 
-
+export const updateMediaInDBActionCreator = (e) => (dispatch, getState) => {
+  e.preventDefault();
+  console.log('updating media with id', getState().media.idToUpdate)
+  fetch(`http://localhost:3000/api/media/${getState().user.userProfile._id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      _id: getState().media.idToUpdate,
+      [defaultFields.TYPE]: e.target[0].value,
+      [defaultFields.TITLE]: e.target[1].value,
+      [defaultFields.CURRENT_STATUS]: e.target[2].value
+    })
+  })
+    .then(res => res.json())
+    .then(updatedMedia => {
+      console.log('updatedMedia from mAC is ,', updatedMedia)
+      dispatch({
+        //created actiontype, and switchcase in reducer
+        type: actions.UPDATE_MEDIA_INFO,
+        payload: updatedMedia
+      })
+      //need to dispatch again to restet idToUpdate in state to undefined
+    })
+    .catch(err => console.log('error in updateMedia mAC', err))
+    
+}
 

@@ -76,6 +76,25 @@ const mediaReducer = (state = initialState, action) => {
       }
     }
 
+    case(actions.UPDATE_MEDIA_INFO): {
+      console.log(action.payload)
+      const oldState = [...state.media]
+      const newMediaState = [];
+      const newMediaObj = action.payload;
+      oldState.forEach(el => {
+        if (el._id === action.payload._id){
+          newMediaState.push(newMediaObj)
+        } else {
+          newMediaState.push(el);
+        }
+      })
+      return {
+        ...state,
+        media: [...newMediaState],
+        idToUpdate: undefined
+      }
+    }
+
     //Expected payload: updated media object at given index position (positioning features not yet implemented)
     case(actions.UPDATE_MEDIA): {
       return {

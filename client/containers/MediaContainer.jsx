@@ -5,6 +5,7 @@ import Media from '../components/Media.jsx';
 import UpdateMedia from "../components/updateMedia.jsx"
 import  { deleteMediaActionCreator } from '../actions/mediaActionCreators.js';
 import { placeIdToUpdateInStateActionCreator } from '../actions/mediaActionCreators.js'
+import { updateMediaInDBActionCreator } from '../actions/mediaActionCreators.js'
 //if you export as a single function
 //you have to import the func in brackets with the exact same name
 //contain the brackets when importing as a single func
@@ -18,7 +19,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 
   delete: (mediaId, userId) => dispatch(deleteMediaActionCreator(mediaId, userId)),
-  updateIdInState: (idToUpdate) => dispatch(placeIdToUpdateInStateActionCreator(idToUpdate))
+  updateIdInState: (idToUpdate) => dispatch(placeIdToUpdateInStateActionCreator(idToUpdate)),
+  updateInDB: (e) => dispatch(updateMediaInDBActionCreator(e))
 })
 
 class MediaContainer extends Component {
@@ -37,7 +39,9 @@ class MediaContainer extends Component {
         console.log('media id', media._id)
         if (media._id === this.props.idToUpdate){
           medias.push(
-            <UpdateMedia {...media}/>
+            <UpdateMedia {...media}
+            updateInDB={this.props.updateInDB}
+            />
             //if props.state.idToUpdate === media._id
         // push <UpdateMedia component with props from media
         // other wise, do the below
