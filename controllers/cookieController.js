@@ -3,10 +3,9 @@ const { User } = require('../models/mainModels');
 
 const cookieController = {};
 
-
-// middleware to set SSID cookie on user
 cookieController.setSSIDCookie = (req, res, next) => {
-  if (res.locals.notFound) return next();
+//Sets an SSID cookie for the user, only if their login/signup is verified.
+  if (!res.locals.userVerified) return next();
 
   res.locals.ssid = res.locals.user._id;
   res.cookie('ssid', res.locals.user._id, { httpOnly: true });

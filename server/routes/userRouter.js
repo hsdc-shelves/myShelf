@@ -9,7 +9,8 @@ const cookieController = require('../../controllers/cookieController');
 router.get(
   '/',
   sessionController.isLoggedIn,
-  sessionController.servePage,
+  userController.getUserDocumentBySSIDCookie,
+  userController.constructUserData,
   (req, res) => {
     // json stringified response of sessionAuthenticated cookie
     res.status(200).json(res.locals.payload);
@@ -19,10 +20,10 @@ router.get(
 // create user
 router.post(
   '/create',
-  userController.createUser,
+  userController.createUserDocument,
   cookieController.setSSIDCookie,
   sessionController.createSession,
-  sessionController.servePage,
+  userController.constructUserData,
   (req, res) => {
     res.status(200).json(res.locals.payload);
   }
@@ -31,10 +32,11 @@ router.post(
 // user login
 router.post(
   '/login',
-  userController.verifyUser,
-  cookieController.setSSIDCookie,
+  userController.getUserDocumentByUsername,
+  userController.verifyPassword,
   sessionController.createSession,
-  sessionController.servePage,
+  cookieController.setSSIDCookie,
+  userController.constructUserData,
   (req, res) => {
     res.status(200).json(res.locals.payload);
   }
