@@ -156,24 +156,3 @@ mediaController.deleteMedia = async (req, res, next) => {
 // exports mediaController object to server
 module.exports = mediaController;
 
-// try {
-    
-//   const updateUserMediaObj = await User.findOneAndUpdate(
-//     //filter out the user in the user collection
-//     { _id: userId }, 
-//     //update the media field in User document with the received data from the client
-//     { $set: { media : req.body }}, 
-//     //projection allows for a specific part of the document to be returned, then inside the media array in the user doc, return only the media object that matches the mediaID, the returned document will be the user id and a media with one value in the array of the updated media
-//     { new: true, projection: { media: {$elemMatch: {_id: mediaId} } } }
-//   ).exec();
-  
-//   //if user isn't found- return error status of 404
-//   if (updateUserMediaObj === null) {
-//     return next({
-//       log: `User ${userId} does not exist in the database, returned data came back as null`,
-//       status: 404,
-//       message: `Error Occurred When Finding User in Database, Please input a valid User ID`
-//     })
-//   }
-
-//   
