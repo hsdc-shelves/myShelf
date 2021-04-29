@@ -117,6 +117,7 @@ thunked action creator to add new media
 }
 
 export const updateMediaInDBActionCreator = (e) => (dispatch, getState) => {
+  
   e.preventDefault();
   console.log('updating media with id', getState().media.idToUpdate)
   fetch(`http://localhost:3000/api/media/${getState().user.userProfile._id}`, {
