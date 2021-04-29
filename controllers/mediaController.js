@@ -6,22 +6,23 @@ const mediaController = {};
 
 // middleware to get entire media profile of user
 mediaController.getMedia = async (req, res, next) => {
-  //userId will be sent to the backend via query parameters
+  //userId will be sent to the backend via query 
   const { userId } = req.query;
-  // find all media catalog
+  
   
   try {
-  const userDoc = await User.findOne({_id: userId}).exec()
-    // if no user was found, return an empty media object
-    if (!userDoc) {
-      res.locals.media = {};
-      return next();
-    }
-    
+    //find the user based on the query in our database
+    const userDoc = await User.findOne({_id: userId}).exec()
+      // if no user was found, return an empty media object and go to the next middleware
+      if (!userDoc) {
+        res.locals.media = {};
+        return next();
+      }
+    //if user is found save the users media array in res.locals.media and go to the next middleware
     res.locals.media= userDoc.media;
       
     return next();
-
+      //if problem when finding the user in the database, catch
   } catch (err) {
     return next({
       log: `User ${userId} does not exist in the database, returned data came back as null`,
@@ -38,7 +39,7 @@ mediaController.addMedia = async (req, res, next) => {
   const { userId } = req.query;
 
   try {
-
+    //find the user and update the media array in the user's document and return the updated media array from the database
     const userMediaArray = await User.findOneAndUpdate(
       // filter for the _id
       { _id: userId },
@@ -48,7 +49,7 @@ mediaController.addMedia = async (req, res, next) => {
       { new: true, projection: "media"} 
       
     ).exec();
-
+      //if user doesn't exist in the database, invoke global error handler
     if (!userMediaArray){
       return next({
         log: `User ${userId} does not exist in the database, returned data came back as null`,
@@ -60,7 +61,8 @@ mediaController.addMedia = async (req, res, next) => {
       // store in local memory that last media item just added
       res.locals.media = userMediaArray.media[userMediaArray.media.length - 1];
       return next();
-
+   
+      //if error in the database, caught by the catch
   } catch (err) {
     return next(
       {
@@ -72,17 +74,17 @@ mediaController.addMedia = async (req, res, next) => {
 
 // update the entry of a specific media type
 mediaController.updateMedia = async (req, res, next) => {
-  
+  //front end is sending the user through parameters and the media object in the request body
   const { userId } = req.params;
   const { _id: mediaId, title, type, currentStatus } = req.body;
 
 
   try {
-
+    //find the userDocument and specifically the media object within  the user's media array, update that object, and return only the updated media object
     const updateUserMediaObj = await User.findOneAndUpdate(
           //filter out the user in the user collection, and finds the specific media within the media array of the user document
           { _id: userId, "media._id": mediaId }, 
-          //updates all the fields in the object of the mediaId
+          //updates all the fields in the object where the mediaId's match
           { $set:
             { 
               "media.$.title" : title,
@@ -95,7 +97,7 @@ mediaController.updateMedia = async (req, res, next) => {
         ).exec();
    
         
-
+    //if user is not found
     if (!updateUserMediaObj) {
       return next({
         log: `User ${userId} does not exist in the database`,
