@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+
   delete: (mediaId, userId) => dispatch(deleteMediaActionCreator(mediaId, userId))
 })
 
@@ -38,7 +39,9 @@ class MediaContainer extends Component {
           key={`media-${idx}`}
         />)
       })
-    
+    //wesley said, just make one new component and filter for the val in state that is need to be updated
+    //then if the filter going into medias hits that id render updtae media component for that for 
+    // All wesleys idea
     return (
       <div id='media-container'>
         {medias}

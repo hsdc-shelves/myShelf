@@ -32,8 +32,8 @@ export const deleteMediaActionCreator = (mediaId, userId) =>  (dispatch) => {
     }})
   .then(res => res.json())
   .then(deletedDoc => { //the response be the deleted object, and we will grab the id off of that and we then go and fileter that out of state.
-    console.log('deletedDoc', delectedDoc);
-    deleteId = deletedDoc.body._id ///wesley says check into this
+    console.log('deletedDoc', deletedDoc);
+    const deleteId = deletedDoc._id
     dispatch({
       type: actions.DELETE_MEDIA,
       payload: deleteId
