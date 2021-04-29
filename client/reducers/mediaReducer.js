@@ -78,9 +78,13 @@ const mediaReducer = (state = initialState, action) => {
 
     //Expected payload: delete media at given index position (positioning features not yet implemented)
     case (actions.DELETE_MEDIA): {
+      let newMedia = [...state.media].filter(el => {
+        return el._id !== action.payload; 
+      })
+      console.log(newMedia);
       return {
         ...state,
-        media: [...state.media].splice(action.payload.position, 1)
+        media: newMedia
       }
     }
 

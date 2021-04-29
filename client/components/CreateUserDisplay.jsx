@@ -4,7 +4,7 @@ export default ({ createUser }) => {
 
   return (
     <div id='create-user-form-container' className='user-credential-form-container'>
-      <h1>Bookshelf</h1>
+      <h1>myShelf</h1>
       <h2>Create an account</h2>
 
       <form onSubmit={(e) => createUser(e)}>
