@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Media from '../components/Media.jsx';
+import UpdateMedia from "../components/updateMedia.jsx"
 import  { deleteMediaActionCreator } from '../actions/mediaActionCreators.js';
+import { placeIdToUpdateInStateActionCreator } from '../actions/mediaActionCreators.js'
 //if you export as a single function
 //you have to import the func in brackets with the exact same name
 //contain the brackets when importing as a single func
@@ -14,7 +16,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 
-  delete: (mediaId, userId) => dispatch(deleteMediaActionCreator(mediaId, userId))
+  delete: (mediaId, userId) => dispatch(deleteMediaActionCreator(mediaId, userId)),
+  updateIdInState: (idToUpdate) => dispatch(placeIdToUpdateInStateActionCreator(idToUpdate))
 })
 
 class MediaContainer extends Component {
@@ -24,7 +27,7 @@ class MediaContainer extends Component {
 
   render() {
 
-    const medias = [];
+    const medias = [<UpdateMedia/>];
     
     //Display only media that match the user-selected media type
     this.props.media
@@ -36,6 +39,7 @@ class MediaContainer extends Component {
           {...media}
           userId={this.props.userId}
           delete={this.props.delete}
+          updateIdInState={this.props.updateIdInState}
           key={`media-${idx}`}
         />)
       })

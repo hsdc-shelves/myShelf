@@ -22,6 +22,14 @@ media to display on the main application (filter for media type)
 
 }
 
+export const placeIdToUpdateInStateActionCreator = (mediaId) => {
+  console.log(mediaId)
+  return{
+    type: actions.UPDATE_ID_INSTATE,
+    payload: mediaId
+  }
+}
+
 
 export const deleteMediaActionCreator = (mediaId, userId) =>  (dispatch) => {  
   

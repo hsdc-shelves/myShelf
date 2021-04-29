@@ -3,6 +3,7 @@ import actions from '../constants/actions.js';
 //testing only: production should have state = [] in reducer params
 const initialState = {
   media: [],
+  idToUpdate: null,
 //   media: [
 //     {
 //       _id: 1234,
@@ -65,6 +66,13 @@ const mediaReducer = (state = initialState, action) => {
       return {
         ...state,
         media: newMedia
+      }
+    }
+
+    case(actions.UPDATE_ID_INSTATE): {
+      return {
+        ...state,
+        idToUpdate: action.payload
       }
     }
 
