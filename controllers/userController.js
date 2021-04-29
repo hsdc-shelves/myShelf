@@ -58,10 +58,11 @@ userController.verifyPassword = async (req, res, next) => {
 //Verifies whether login attempt's password is correct 
 
   try {
-    const passwordMatches = bcrypt.compare(
+    const passwordMatches = await bcrypt.compare(
       req.body.password, 
       res.locals.user.userProfile.password
       );
+
     if (!passwordMatches) {
       res.locals.userVerified = false;
     } else {
@@ -96,37 +97,5 @@ userController.constructUserData = async (req, res, next) => {
 
   return next();
 };
-
-
-
-// userController.verifyUser = async (req, res, next) => {
-
-//   console.log('Login received: ', req.body);
-//   const { username, password } = req.body;
-
-//   console.log(`username and password:`, username, password);
-//   // only query userName; check out bcrypt docs to see how to compare input password and encrypted password
-//   try {
-//     //Login received:  { username: 'a', password: 'a' }
-//     const foundUser = await User.findOne({ 'userProfile.username' : username }).exec();
-//     console.log('found user: ', foundUser);
-//     if (foundUser !== null) {
-//       bcrypt.compare(password, foundUser.userProfile.password, (err, response) => {
-//         if (err) return next(err);
-//         if (response) {
-//           console.log(`User ${username} verified!`);
-//           res.locals.user = foundUser;
-//           return next();
-//         }
-//       });
-//     } else {
-//       res.locals.notFound = true;
-//       return next();
-//     }
-//   } catch (error) {
-//     console.log(error.stack);
-//     return next(error);
-//   }
-// }
 
 module.exports = userController;
