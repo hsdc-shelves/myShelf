@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "flexible user media catalogue",
   "main": "client/index.js",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
-    "test": "jest --verbose",
+    "test": "IS_TEST=true jest --verbose",
     "build": "NODE_ENV=production webpack",
-    "start": "NODE_ENV=production nodemon server/server.js",
-    "dev": "NODE_ENV=development webpack serve --open & nodemon server/server.js"
+    "start": "NODE_ENV=production nodemon server/start.js",
+    "dev": "NODE_ENV=development webpack serve --open & nodemon server/start.js"
   },
   "repository": {
     "type": "git",

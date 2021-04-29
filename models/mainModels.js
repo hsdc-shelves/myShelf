@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 // connect to atlas
 // Add MongoURI from Atlas in string with password and dbName is 'BookshelfDB' instead of myFirstDatabase
-
+console.log(process.env.IS_TEST ? process.env.mongo_TESTURI : process.env.mongo_URI);
 mongoose
-  .connect(process.env.pg_URI, {
+  .connect(process.env.IS_TEST ? process.env.mongo_TESTURI : process.env.mongo_URI, {
     // options for the connect method to parse the URI
     useNewUrlParser: true,
     useUnifiedTopology: true,

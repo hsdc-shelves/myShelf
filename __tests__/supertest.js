@@ -1,90 +1,49 @@
 const request = require('supertest');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 
-const server = 'http://localhost:3000';
+// const server = await require('../server/server.js');
+const url = 'http://localhost:3000';
 
-describe('User route handling', () => {
+describe('Route Tests', () => {
 
-});
+  let server;
+  beforeAll(async () => {
+    server = await require('../server/server.js')
+  })
 
-describe('Media route handling', () => {
+  afterAll(async () => {
+    const collections = Object.keys(mongoose.connection.collections);
+    for (const collection of collections) {
+      await mongoose.connection.collections[collection].deleteMany();
+    }
+    server.close();
+    await mongoose.connection.close();
+  })
 
-});
+  describe('User Routes', () => {
 
-// describe('Route integration', () => {
-//   describe('/', () => {
-//     describe('GET', () => {
-//       it('responds with 200 status and text/html content type', () => {
-//         return request(server)
-//           .get('/')
-//           .expect('Content-Type', /text\/html/)
-//           .expect(200);
-//       });
-//     });
-//   });
-//   describe('/api/media', () => {
-//     describe('GET', () => {
-//       it('responds with 200 status and JSON', () => {
-//         return request(server)
-//           .get('/api/media')
-//           .expect('Content-Type', /application\/json/)
-//           .expect(200);
-//       });
-//     });
-//   });
-//   describe('Global Error Handling', () => {
-//     describe('Wrong URL', () => {
-//       it('respond with 404 status', () => {
-//         return request(server).get('/blahblahblahwrongrequest').expect(404);
-//       });
-//     });
-//   });
-//   describe('Get Users', () => {
-//     describe('Get Users', () => {
-//       xit('responds with 200 and JSON', () => {
-//         return request(server)
-//           .get('/api/users')
-//           .expect(200)
-//           .expect('Content-Type', /application\/json/);
-//       });
-//     });
-//   });
-//   describe('Create User', () => {
-//     describe('Create User', () => {
-//       const User1 = [
-//         {
-//           userProfile: {
-//             username: 'fal',
-//             password: 'fal',
-//             email: 'fal',
-//             firstName: 'fal',
-//             lastName: 'fal',
-//           },
-//           media: [],
-//         },
-//       ];
+    it('Should create a new user and provide the new userProfile with their document id', () => {
 
-//       xit('responds with 200', () => {
-//         return request(server)
-//           .post('/api/users/create')
-//           .json(User1)
-//           .expect(200);
-//       });
-//     });
-//   });
-//   describe('AddMedia', () => {
-//     describe('Add Media', () => {
-//       const mediaEntry1 = [
-//         {
-//           title: 'Spiderman',
-//           type: 'Movie',
-//           currentStatus: 'Watched',
-//         },
-//       ];
-//       xit('responds with 200', () => {
-//         return request(server).post('/api/media').send(mediaEntry1).expect(200);
-//       });
-//     });
-//   });
-// });
+      const testUser = {
+        username: 'testUser10',
+        password: 'test',
+        email: 'test10@example.com',
+        firstName: 'Foo',
+        lastName: 'Bar'
+    }
+    
+      return request(url)
+        .post('/api/users/create')
+        .set('Content-Type', 'application/json')
+        .send(testUser)
+        .expect(200)
+        .then(response => {
+          expect(response).toEqual(1);
+        });
+    });
+  });
+  
+  
+})
