@@ -3,7 +3,7 @@ import actions from '../constants/actions.js';
 //testing only: production should have state = [] in reducer params
 const initialState = {
   media: [],
-  idToUpdate: null,
+  idToUpdate: undefined,
 //   media: [
 //     {
 //       _id: 1234,

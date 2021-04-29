@@ -30,6 +30,8 @@ export const placeIdToUpdateInStateActionCreator = (mediaId) => {
   }
 }
 
+//create an action that will send the newly updated bit of media to the back end
+//somehow we also at the end of these need to update the idToUpdate val in state back to null
 
 export const deleteMediaActionCreator = (mediaId, userId) =>  (dispatch) => {  
   

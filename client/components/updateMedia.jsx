@@ -11,7 +11,7 @@ export default (props) => {
       {/* onSubmit=sendFormDataToDB */}
         <div>
          <label htmlFor='title'>Title </label>
-         <input type='text' id='title'></input>
+         <input type='text' id='title'placeholder={props.title}></input>
         </div>
 
         <div>
