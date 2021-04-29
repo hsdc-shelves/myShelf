@@ -3,6 +3,7 @@ import actions from '../constants/actions.js';
 //testing only: production should have state = [] in reducer params
 const initialState = {
   media: [],
+  idToUpdate: undefined,
 //   media: [
 //     {
 //       _id: 1234,
@@ -65,6 +66,32 @@ const mediaReducer = (state = initialState, action) => {
       return {
         ...state,
         media: newMedia
+      }
+    }
+
+    case(actions.UPDATE_ID_INSTATE): {
+      return {
+        ...state,
+        idToUpdate: action.payload
+      }
+    }
+
+    case(actions.UPDATE_MEDIA_INFO): {
+      console.log(action.payload)
+      const oldState = [...state.media]
+      const newMediaState = [];
+      const newMediaObj = action.payload;
+      oldState.forEach(el => {
+        if (el._id === action.payload._id){
+          newMediaState.push(newMediaObj)
+        } else {
+          newMediaState.push(el);
+        }
+      })
+      return {
+        ...state,
+        media: [...newMediaState],
+        idToUpdate: undefined
       }
     }
 
